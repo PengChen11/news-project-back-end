@@ -2,6 +2,8 @@
 
 [Click here to see the front end repo](https://github.com/PengChen11/news-project-front-end)
 
+[Click here to see the deployed site](https://chen-news.vercel.app)
+
 ## Overview
 
 It’s time to stitch the front and the back ends. In fact we’ll break the back end in two and stitch that together as well.
