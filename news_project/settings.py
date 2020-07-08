@@ -163,12 +163,12 @@ STATICFILES_DIRS = [
 # }
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
-    "*",
+    "https://chen-news.vercel.app",
 ]
 
 CORS_ORIGIN_REGEX_WHITELIST = [
     # r"^https://snacks-next.\w+\.vercel.app$",
-    "*",
+    r"^https://chen-news.\w+\.vercel.app$",
 ]
 
 # production
