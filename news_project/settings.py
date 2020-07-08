@@ -13,10 +13,17 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import environ
 
-env = environ.Env()
+env = environ.Env(
+    DEBUG=(bool, False),
+    ENVIRONMENT=(str, 'PRODUCTION')
+)
+
 environ.Env.read_env()
 
+ENVIRONMENT = env.str('ENVIRONMENT')
+
 DEBUG = env.bool('DEBUG', default=False)
+
 TEMPLATE_DEBUG = DEBUG
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -144,16 +151,33 @@ STATICFILES_DIRS = [
 ]
 
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES' : [
-        'rest_framework.permissions.AllowAny',
-    ],
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES' : [
+#         'rest_framework.permissions.AllowAny',
+#     ],
     # 'DEFAULT_AUTHENTICATION_CLASSES' : [
     #     'rest_framework_simplejwt.authentication.JWTAuthentication',
     #     'rest_framework.authentication.SessionAuthentication',
     #     'rest_framework.authentication.BasicAuthentication',
     # ],
-}
+# }
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
+    "*",
 ]
+
+CORS_ORIGIN_REGEX_WHITELIST = [
+    # r"^https://snacks-next.\w+\.vercel.app$",
+    "*",
+]
+
+# production
+if ENVIRONMENT == 'production':
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
